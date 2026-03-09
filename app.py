@@ -14,7 +14,13 @@ RENDER_URL = os.environ.get("RENDER_EXTERNAL_URL")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+for m in genai.list_models():
+    if 'generateContent' in m.supported_generation_methods:
+        print(f"Available model: {m.name}")
+
+# សាកល្បងប្រើឈ្មោះពេញនេះវិញ
+model = genai.GenerativeModel(model_name='models/gemini-1.5-flash')
+
 bot = Bot(token=TOKEN)
 app = Flask(__name__)
 
