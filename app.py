@@ -13,12 +13,17 @@ TOKEN = os.environ.get("TELEGRAM_TOKEN")
 RENDER_URL = os.environ.get("RENDER_EXTERNAL_URL")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
+# កែប្រែត្រង់ចំណុចនេះ
 genai.configure(api_key=GEMINI_API_KEY)
-for m in genai.list_models():
-    if 'generateContent' in m.supported_generation_methods:
-        print(f"Available model: {m.name}")
 
-model = genai.GenerativeModel(model_name='models/gemini-1.0-pro')
+# ប្រើឈ្មោះម៉ូដែលពេញលេញ និងត្រឹមត្រូវ
+model = genai.GenerativeModel('models/gemini-1.5-flash') 
+
+# ប្រសិនបើអ្នកប្រើ System Instruction សូមដាក់បែបនេះ
+# model = genai.GenerativeModel(
+#     model_name='models/gemini-1.5-flash',
+#     system_instruction="អ្នកគឺជាជំនួយការ AI ខ្មែរ។"
+# )
 
 bot = Bot(token=TOKEN)
 app = Flask(__name__)
